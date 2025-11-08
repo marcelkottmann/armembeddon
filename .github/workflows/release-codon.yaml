@@ -1,15 +1,12 @@
-name: Release
+name: Release Codon Base Tool
 
 on:
   workflow_dispatch:
-  push:
-    branches:
-      - release-workflow
-
+  
 jobs:
   build:
     runs-on: ubuntu-latest
-    timeout-minutes: 600
+    timeout-minutes: 1200
     permissions:
       contents: read
       packages: write
@@ -32,6 +29,6 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           context: release
-          file: release/Dockerfile
+          file: release/llvm/Dockerfile
           push: true
-          tags: ghcr.io/marcelkottmann/armembeddon/tools-base:0.0.1
+          tags: ghcr.io/marcelkottmann/armembeddon/tools-base-codon:0.0.1
