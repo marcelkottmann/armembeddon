@@ -34,6 +34,6 @@ jobs:
           context: release
           file: release/llvm/Dockerfile
           push: true
-          tags: ghcr.io/marcelkottmann/armembeddon/tools-base-llvm:0.0.1
-          cache-from: type=registry,ref=ghcr.io/marcelkottmann/armembeddon/tools-base-llvm:buildcache
-          cache-to: type=registry,ref=ghcr.io/marcelkottmann/armembeddon/tools-base-llvm:buildcache,mode=max
+          tags: ghcr.io/marcelkottmann/armembeddon/tools-base-llvm:0.0.2
+          cache-from: type=registry,ref=ghcr.io/marcelkottmann/armembeddon/tools-base-llvm:0.0.1
+          cache-to: type=inline
