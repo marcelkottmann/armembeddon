@@ -7,7 +7,11 @@ RUN git clone https://github.com/marcelkottmann/armembeddon-codon-fork.git codon
 
 ENV CODON_SYSTEM_LIBRARIES=/usr/lib/x86_64-linux-gnu
 
-RUN cd codon && mkdir build
+ARG VERSION
+
+RUN cd codon && git checkout ${VERSION}
+
+RUN cd codon && mkdir -p build
 RUN cd codon && cmake -S . -B build \
     -DCMAKE_BUILD_TYPE=Release \
     -DLLVM_DIR=../llvm-project/install/lib/cmake/llvm \
