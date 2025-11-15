@@ -1,10 +1,10 @@
-name: Release LLVM Base Tool
+name: Release Cache Test
 
 on:
   workflow_dispatch:
-  # push:
-  #   branches:
-  #     - release-workflow
+  push:
+    branches:
+      - release-workflow
 
 jobs:
   build:
@@ -32,8 +32,8 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           context: release
-          file: release/llvm/Dockerfile
+          file: release/cache-test/Dockerfile
           push: true
-          tags: ghcr.io/marcelkottmann/armembeddon/tools-base-llvm:0.0.2
-          cache-from: type=registry,ref=ghcr.io/marcelkottmann/armembeddon/tools-base-llvm:0.0.1
-          cache-to: type=inline
+          tags: ghcr.io/marcelkottmann/armembeddon/cache-test:0.0.1
+          cache-from: type=registry,ref=ghcr.io/marcelkottmann/armembeddon/cache-test:buildcache
+          cache-to: type=registry,ref=ghcr.io/marcelkottmann/armembeddon/cache-test:buildcache,mode=max        
