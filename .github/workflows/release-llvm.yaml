@@ -2,9 +2,9 @@ name: Release LLVM Base Tool
 
 on:
   workflow_dispatch:
-  # push:
-  #   branches:
-  #     - release-workflow
+  push:
+    branches:
+      - release-workflow
 
 jobs:
   build:
@@ -15,6 +15,20 @@ jobs:
       packages: write
 
     steps:
+      - name: Aggressive Disk Cleanup
+        run: |
+          # Remove .NET SDKs (~2 GB)
+          sudo rm -rf /usr/share/dotnet
+          # Remove Android SDKs and Tools (~6-9 GB)
+          sudo rm -rf /usr/local/lib/android
+          # Remove CodeQL toolchains (~2-5 GB)
+          sudo rm -rf /opt/hostedtoolcache/CodeQL
+          # Prune all unused Docker data (if you use Docker in your build)
+          docker system prune -a --volumes -f || true
+          # Check free space after cleanup
+          echo "Disk space after cleanup:"
+          df -h
+
       - name: Checkout code
         uses: actions/checkout@v4
 
@@ -35,5 +49,5 @@ jobs:
           file: release/llvm/Dockerfile
           push: true
           tags: ghcr.io/marcelkottmann/armembeddon/tools-base-llvm:0.0.2
-          cache-from: type=registry,ref=ghcr.io/marcelkottmann/armembeddon/tools-base-llvm:0.0.1
-          cache-to: type=inline
+          cache-from: type=registry,ref=ghcr.io/marcelkottmann/armembeddon/tools-base-llvm:buildcache
+          cache-to: type=registry,ref=ghcr.io/marcelkottmann/armembeddon/tools-base-llvm:buildcache,mode=max        

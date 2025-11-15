@@ -15,6 +15,20 @@ jobs:
       packages: write
 
     steps:
+      - name: Aggressive Disk Cleanup
+        run: |
+          # Remove .NET SDKs (~2 GB)
+          sudo rm -rf /usr/share/dotnet
+          # Remove Android SDKs and Tools (~6-9 GB)
+          sudo rm -rf /usr/local/lib/android
+          # Remove CodeQL toolchains (~2-5 GB)
+          sudo rm -rf /opt/hostedtoolcache/CodeQL
+          # Prune all unused Docker data (if you use Docker in your build)
+          docker system prune -a --volumes -f || true
+          # Check free space after cleanup
+          echo "Disk space after cleanup:"
+          df -h
+
       - name: Checkout code
         uses: actions/checkout@v4
 
@@ -32,7 +46,7 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           context: release
-          file: release/llvm/Dockerfile
+          file: release/codon/Dockerfile
           push: true
           tags: ghcr.io/marcelkottmann/armembeddon/tools-base-codon:0.0.1
           cache-from: type=registry,ref=ghcr.io/marcelkottmann/armembeddon/tools-base-codon:buildcache
