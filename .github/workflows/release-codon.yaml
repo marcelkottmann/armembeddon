@@ -54,26 +54,27 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           context: release
+          secrets: |
+            "github_token=${{ secrets.GH_TOKEN }}"
           file: release/codon/Dockerfile
           push: true
-          load: true
           build-args: |
             VERSION=${{ env.VERSION }}
           tags: "${{ env.IMAGE_BASE }}:${{ env.VERSION }}"
           cache-from: type=registry,ref=ghcr.io/marcelkottmann/armembeddon/tools-base-codon:buildcache
           cache-to: type=registry,ref=ghcr.io/marcelkottmann/armembeddon/tools-base-codon:buildcache,mode=max        
 
-      - name: Extract Build Artifacts to Host
-        # Use docker run with --rm (auto-cleanup) and a volume mount (-v)
-        run: |
-          docker run --rm \
-            -v ${{ github.workspace }}/artifact-mount:/release \
-            ${{ env.IMAGE_BASE }}:${{ env.VERSION }} \
-            sh -c "cp armembeddon.tar.gz /release/"
+      # - name: Extract Build Artifacts to Host
+      #   # Use docker run with --rm (auto-cleanup) and a volume mount (-v)
+      #   run: |
+      #     docker run --rm \
+      #       -v ${{ github.workspace }}/artifact-mount:/release \
+      #       ${{ env.IMAGE_BASE }}:${{ env.VERSION }} \
+      #       sh -c "cp armembeddon.tar.gz /release/"
 
-      - name: Upload Artifacts
-        uses: actions/upload-artifact@v4
-        with:
-          name: codon-build-artifacts-${{ env.VERSION }}
-          path: ${{ github.workspace }}/artifact-mount/
-          retention-days: 7
+      # - name: Upload Artifacts
+      #   uses: actions/upload-artifact@v4
+      #   with:
+      #     name: codon-build-artifacts-${{ env.VERSION }}
+      #     path: ${{ github.workspace }}/artifact-mount/
+      #     retention-days: 7
