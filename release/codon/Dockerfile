@@ -32,5 +32,9 @@ RUN (type -p wget >/dev/null || (apt update && apt install wget -y)) \
 	&& apt update \
 	&& apt install gh -y
 
-COPY codon/pack.sh pack.sh
-RUN --mount=type=secret,id=github_token chmod a+x ./pack.sh && GH_TOKEN=$(cat /run/secrets/github_token) ./pack.sh
+COPY release/codon/pack.sh pack.sh
+COPY scripts armembeddon/scripts
+COPY include armembeddon/include
+COPY src armembeddon/src
+
+RUN --mount=type=secret,id=github_token chmod a+x ./pack.sh && GH_TOKEN=$(cat /run/secrets/github_token) VERSION=${VERSION} ./pack.sh

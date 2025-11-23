@@ -53,7 +53,7 @@ jobs:
       - name: Build and push Docker image
         uses: docker/build-push-action@v5
         with:
-          context: release
+          context: .
           secrets: |
             "github_token=${{ secrets.GH_TOKEN }}"
           file: release/codon/Dockerfile
