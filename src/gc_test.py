@@ -1,5 +1,3 @@
-from import_test import TEST_EXPORT
-
 lst = []
 for i in range(15):
     lst.append(str(i))
@@ -20,5 +18,3 @@ class A:
 lst2 = []
 for i in range(15):
     lst2.append(A("Hello" + str(i * 2)))
-
-print(TEST_EXPORT)

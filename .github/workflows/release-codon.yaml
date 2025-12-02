@@ -15,7 +15,7 @@ jobs:
       packages: write
     env:
       IMAGE_BASE: ghcr.io/marcelkottmann/armembeddon/tools-base-codon
-      VERSION: 0.0.3
+      VERSION: 0.0.4
 
 
     steps:

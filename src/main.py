@@ -24,6 +24,8 @@ def str_str_concatenation():
         return "Expected string 'AB' but got " + c
 
 
+
+
 def str_int_concatenation():
     c = "A" + str(1)
     if not c == "A1":
