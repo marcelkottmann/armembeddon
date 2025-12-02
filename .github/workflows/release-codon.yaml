@@ -15,7 +15,8 @@ jobs:
       packages: write
     env:
       IMAGE_BASE: ghcr.io/marcelkottmann/armembeddon/tools-base-codon
-      VERSION: 0.0.4
+      RELEASE_VERSION: 0.0.5
+      CHECKOUT_VERSION: 0.0.3
 
 
     steps:
@@ -59,8 +60,9 @@ jobs:
           file: release/codon/Dockerfile
           push: true
           build-args: |
-            VERSION=${{ env.VERSION }}
-          tags: "${{ env.IMAGE_BASE }}:${{ env.VERSION }}"
+            RELEASE_VERSION=${{ env.RELEASE_VERSION }}
+            CHECKOUT_VERSION=${{ env.CHECKOUT_VERSION }}
+          tags: "${{ env.IMAGE_BASE }}:${{ env.RELEASE_VERSION }}"
           cache-from: type=registry,ref=ghcr.io/marcelkottmann/armembeddon/tools-base-codon:buildcache
           cache-to: type=registry,ref=ghcr.io/marcelkottmann/armembeddon/tools-base-codon:buildcache,mode=max        
 

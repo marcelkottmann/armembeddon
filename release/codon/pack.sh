@@ -18,4 +18,4 @@ cp -r armembeddon/* release/armembeddon/
 
 tar cvzf armembeddon.tar.gz -C release armembeddon
 
-gh release create "$VERSION" --repo marcelkottmann/armembeddon ./armembeddon.tar.gz
+gh release create "$RELEASE_VERSION" --repo marcelkottmann/armembeddon ./armembeddon.tar.gz
