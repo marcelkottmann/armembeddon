@@ -7,9 +7,10 @@ RUN apt install git build-essential clang gfortran python3 python3-dev python3-v
 
 ENV CODON_SYSTEM_LIBRARIES=/usr/lib/x86_64-linux-gnu
 
-ARG VERSION
+ARG RELEASE_VERSION
+ARG CHECKOUT_VERSION
 
-RUN cd codon && git pull --tags && git checkout ${VERSION}
+RUN cd codon && git pull --tags && git checkout ${CHECKOUT_VERSION}
 
 RUN cd codon && mkdir -p build
 RUN cd codon && cmake -S . -B build \
@@ -33,8 +34,5 @@ RUN (type -p wget >/dev/null || (apt update && apt install wget -y)) \
 	&& apt install gh -y
 
 COPY release/codon/pack.sh pack.sh
-COPY scripts armembeddon/scripts
-COPY include armembeddon/include
-COPY src armembeddon/src
 
-RUN --mount=type=secret,id=github_token chmod a+x ./pack.sh && GH_TOKEN=$(cat /run/secrets/github_token) VERSION=${VERSION} ./pack.sh
+RUN --mount=type=secret,id=github_token chmod a+x ./pack.sh && GH_TOKEN=$(cat /run/secrets/github_token) RELEASE_VERSION=${RELEASE_VERSION} ./pack.sh
