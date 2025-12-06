@@ -15,9 +15,9 @@ LLVM_BUILD_OBJ="build/${FILE_BASE_NAME}.ll"
 BUILD_OBJ="build/${FILE_BASE_NAME}.o"
 
 # check if "armembeddon-release" directory exists in project directory
-if [ -d "$PROJECT_DIR/armembeddon-release" ]; then
-    ARMEMBEDDON_CODON_FORK="$PROJECT_DIR/armembeddon-release/bin"
-    ARMEMBEDDON_CODON_LLVM_FORK="$PROJECT_DIR/armembeddon-release/bin"
+if [ -d "$PROJECT_DIR/bin" ]; then
+    ARMEMBEDDON_CODON_FORK="$PROJECT_DIR/bin"
+    ARMEMBEDDON_CODON_LLVM_FORK="$PROJECT_DIR/bin"
 else
     if [ -z ${ARMEMBEDDON_CODON_FORK+x} ]; then
         echo "Error: ARMEMBEDDON_CODON_FORK is not set and armembeddon-release directory not found." >&2

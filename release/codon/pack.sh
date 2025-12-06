@@ -8,6 +8,7 @@ mkdir -p release/armembeddon/lib
 # copy llvm binaries
 cp llvm-project/install/bin/llc release/armembeddon/bin/llc
 cp llvm-project/install/bin/llvm-objcopy release/armembeddon/bin/llvm-objcopy
+cp llvm-project/install/bin/opt release/armembeddon/bin/opt
 
 # copy codon libs and binaries
 cp codon/install/bin/codon release/armembeddon/bin/codon
