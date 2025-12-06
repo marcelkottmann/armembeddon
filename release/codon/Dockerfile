@@ -36,6 +36,6 @@ RUN (type -p wget >/dev/null || (apt update && apt install wget -y)) \
 COPY release/codon/pack.sh pack.sh
 COPY scripts armembeddon/scripts
 COPY src armembeddon/src
-COPY platformio.ini armembeddon/src
+COPY platformio.ini armembeddon
 
 RUN --mount=type=secret,id=github_token chmod a+x ./pack.sh && GH_TOKEN=$(cat /run/secrets/github_token) RELEASE_VERSION=${RELEASE_VERSION} ./pack.sh
